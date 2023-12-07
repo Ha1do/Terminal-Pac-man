@@ -7,6 +7,21 @@
 
 int main()
 {
+    initscr();
+    noecho();
+    keypad(stdscr, true);
+    if (has_colors() == FALSE)
+    {
+        endwin();
+        printf("Your terminal does not support color\n");
+        exit(1);
+    }
+    start_color();
+    init_pair(9,COLOR_BLACK,COLOR_WHITE);
+
+    int game_map;
+    game_map = print_menu();
+
     // ! read info from file
     FILE *fp;
 
@@ -14,11 +29,51 @@ int main()
     int lives = 3, score = 0, delta_time, time = get_stert_time();
     int highest_score;
 
-    fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
-    if(fp == NULL){
-        printf("Error opening file.\n");
-        exit(EXIT_FAILURE);
+    if (game_map == 5)
+    {
+        endwin();
+        exit(1);
     }
+    else if (game_map == 1)
+    {
+        fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
+        if(fp == NULL){
+            printf("Error opening file.\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    else if (game_map == 2)
+    {
+        fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_2.txt", "r");
+        if(fp == NULL){
+            printf("Error opening file.\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    else if (game_map == 3)
+    {
+        fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_3.txt", "r");
+        if(fp == NULL){
+            printf("Error opening file.\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    else if (game_map == 4)
+    {
+        fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_4.txt", "r");
+        if(fp == NULL){
+            printf("Error opening file.\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    else
+    {
+        endwin();
+        printf("We fucked up\n");
+        exit(1);
+    }
+
+
 
     fscanf(fp, "weight=%d, height=%d, highest_score=%d, Ox=%d, Oy=%d, Px=%d, Py=%d, Bx=%d, By=%d, Cx=%d, Cy=%d, Ix=%d, Iy=%d\n",
            &weight, &height, &highest_score, &Ox, &Oy, &Px, &Py, &Bx, &By, &Cx, &Cy, &Ix, &Iy);
@@ -51,16 +106,6 @@ int main()
     map[Iy][Ix + 1] = 'I';//INKY
 
 
-    initscr();
-    noecho();
-    keypad(stdscr, true);
-    if (has_colors() == FALSE)
-    {
-        endwin();
-        printf("Your terminal does not support color\n");
-        exit(1);
-    }
-    start_color();
     init_pair(WALL_PAIR,COLOR_BLUE,COLOR_BLUE);
     init_pair(2,COLOR_BLACK,COLOR_BLACK);
     init_pair(PACMAN_PAIR,COLOR_YELLOW,COLOR_YELLOW);
@@ -68,12 +113,8 @@ int main()
     init_pair(PINKY_PAIR,COLOR_MAGENTA,COLOR_MAGENTA);
     init_pair(INKY_PAIR,COLOR_GREEN,COLOR_GREEN);
     init_pair(CLYDE_PAIR,COLOR_CYAN,COLOR_CYAN);
-
-    init_pair(9,COLOR_BLACK,COLOR_WHITE);
     // ? END OF COLORING
 
-    int game_map;
-    game_map = print_menu();
 
     delta_time = get_game_time(time);
     print_gamefield(height, weight, map, lives, score, highest_score, delta_time);

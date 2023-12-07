@@ -108,11 +108,12 @@ int print_menu()
         }
         else if (wait == '\n' && pos == 2)
         {
-
+            clear();
+            return choose_map();
         }
         else if (wait == '\n' && pos == 3)
         {
-            return pos;
+            return 5;
         }
     }while (wait != '\n');
 
