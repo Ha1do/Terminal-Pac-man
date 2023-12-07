@@ -19,8 +19,9 @@ int main()
     start_color();
     init_pair(9,COLOR_BLACK,COLOR_WHITE);
 
+    int difficulty = 2;
     int game_map;
-    game_map = print_menu();
+    game_map = print_menu(&difficulty);
 
     // ! read info from file
     FILE *fp;
@@ -29,12 +30,7 @@ int main()
     int lives = 3, score = 0, delta_time, time = get_stert_time();
     int highest_score;
 
-    if (game_map == 5)
-    {
-        endwin();
-        exit(1);
-    }
-    else if (game_map == 1)
+    if (game_map == 1)
     {
         fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
         if(fp == NULL){
@@ -123,7 +119,7 @@ int main()
 
     int key_pressed;
     char last_move = '0';
-    halfdelay(3);
+    halfdelay(difficulty);
     do{
         fflush(stdin);
         if(key_pressed == 'D' || key_pressed == 'd' || key_pressed == KEY_RIGHT)

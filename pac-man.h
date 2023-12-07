@@ -28,15 +28,17 @@
 #define LIN 40
 #define COL 120
 
-int print_menu()
+int print_menu(int* diff)
 {
 
     int wait;
     move(10, 60);
     printw("Welcome to the \"Terminal Pacman Game\"\n");
-    int pos = 1;
-    print_on_click_play();
+    int pos = 1, map = 1;
+    //diff 3 - easy; 2 - normal; 1 - hard
+    print_on_click_play(map);
     print_hollow_map();
+    print_hollow_options();
     print_hollow_exit();
     move(0, 0);
 
@@ -48,28 +50,39 @@ int print_menu()
         wait = getch();
         if (wait == 'S' || wait == 's' || wait == KEY_DOWN)
         {
-            if (pos < 3)
+            if (pos < 4)
             {
                 pos++;
             }
             if (pos == 1)
             {
-                print_on_click_play();
+                print_on_click_play(map);
                 print_hollow_map();
+                print_hollow_options();
                 print_hollow_exit();
                 move(0, 0);
             }
             else if (pos == 2)
             {
-                print_hollow_play();
+                print_hollow_play(map);
                 print_on_click_map();
+                print_hollow_options();
                 print_hollow_exit();
                 move(0, 0);
             }
             else if (pos == 3)
             {
-                print_hollow_play();
+                print_hollow_play(map);
                 print_hollow_map();
+                print_on_click_options();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 4)
+            {
+                print_hollow_play(map);
+                print_hollow_map();
+                print_hollow_options();
                 print_on_click_exit();
                 move(0, 0);
             }
@@ -82,45 +95,59 @@ int print_menu()
             }
             if (pos == 1)
             {
-                print_on_click_play();
+                print_on_click_play(map);
                 print_hollow_map();
+                print_hollow_options();
                 print_hollow_exit();
                 move(0, 0);
             }
             else if (pos == 2)
             {
-                print_hollow_play();
+                print_hollow_play(map);
                 print_on_click_map();
+                print_hollow_options();
                 print_hollow_exit();
                 move(0, 0);
             }
             else if (pos == 3)
             {
-                print_hollow_play();
+                print_hollow_play(map);
                 print_hollow_map();
+                print_on_click_options();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 4)
+            {
+                print_hollow_play(map);
+                print_hollow_map();
+                print_hollow_options();
                 print_on_click_exit();
                 move(0, 0);
             }
         }
         else if (wait == '\n' && pos == 1)
         {
-            return pos;
+            return map;
         }
         else if (wait == '\n' && pos == 2)
         {
             clear();
-            return choose_map();
+            map = choose_map();
+            print_menu(diff);
         }
         else if (wait == '\n' && pos == 3)
         {
-            return 5;
+            clear();
+
+        }
+        else if (wait == '\n' && pos == 4)
+        {
+            endwin();
+            exit(1);
         }
     }while (wait != '\n');
 
-
-//    move(0, 0);
-//
-//    refresh();
 return 0;
 }
 

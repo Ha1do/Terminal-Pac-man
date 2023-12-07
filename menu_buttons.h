@@ -7,14 +7,15 @@
 #include <curses.h>
 #include <time.h>
 
-void print_hollow_play()
+// ! main menu buttons
+void print_hollow_play(const int map)
 {
     mvprintw(12, 71, "+--------------+");
     mvprintw(13, 71, "|     PLAY     |");
-    mvprintw(14, 71, "|    MAP (1)   |");
+    mvprintw(14, 71, "|    MAP (%d)   |", map);
     mvprintw(15, 71, "+--------------+");
 }
-void print_on_click_play()
+void print_on_click_play(const int map)
 {
     mvprintw(12, 71, "+--------------+");
     mvprintw(13, 71, "|     ");
@@ -24,7 +25,7 @@ void print_on_click_play()
     mvprintw(13, 81, "     |");
     mvprintw(14, 71, "|    ");
     attron(COLOR_PAIR(9));
-    mvprintw(14, 76, "MAP (1)");
+    mvprintw(14, 76, "MAP (%d)", map);
     attroff(COLOR_PAIR(9));
     mvprintw(14, 86, "|");
     mvprintw(15, 71, "+--------------+");
@@ -47,52 +48,64 @@ void print_on_click_map()
     mvprintw(18, 71, "+--------------+");
 }
 
-void print_hollow_exit()
+void print_hollow_options()
 {
     mvprintw(19, 71, "+--------------+");
-    mvprintw(20, 71, "|     EXIT     |");
+    mvprintw(20, 71, "|    OPTIONS   |");
     mvprintw(21, 71, "+--------------+");
 }
-void print_on_click_exit()
+void print_on_click_options()
 {
     mvprintw(19, 71, "+--------------+");
     mvprintw(20, 71, "|");
     attron(COLOR_PAIR(9));
-    mvprintw(20, 77, "EXIT");
+    mvprintw(20, 75, "OPTIONS");
     attroff(COLOR_PAIR(9));
     mvprintw(20, 86, "|");
     mvprintw(21, 71, "+--------------+");
 }
 
-
-void print_hollow_one()
+void print_hollow_exit()
 {
-
+    mvprintw(22, 71, "+--------------+");
+    mvprintw(23, 71, "|     EXIT     |");
+    mvprintw(24, 71, "+--------------+");
 }
+void print_on_click_exit()
+{
+    mvprintw(22, 71, "+--------------+");
+    mvprintw(23, 71, "|");
+    attron(COLOR_PAIR(9));
+    mvprintw(23, 77, "EXIT");
+    attroff(COLOR_PAIR(9));
+    mvprintw(23, 86, "|");
+    mvprintw(24, 71, "+--------------+");
+}
+
+// ! CHOOSE MAP MENU BUTTONS
 void print_on_click_one()
 {
-    mvprintw(16, 60, "|  1  |    |  2  |    |  3  |    |  4  |");
-}
-
-void print_hollow_two()
-{
-
+    mvprintw(16, 57, "|");
+    attron(COLOR_PAIR(9));
+    mvprintw(16, 58, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(16, 65, "|    |       |    |       |    |       |");
+    mvprintw(17, 57, "|");
+    attron(COLOR_PAIR(9));
+    mvprintw(17, 58, "   1   ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(17, 65, "|    |   2   |    |   3   |    |   4   |");
+    mvprintw(18, 57, "|");
+    attron(COLOR_PAIR(9));
+    mvprintw(18, 58, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(18, 65, "|    |       |    |       |    |       |");
 }
 void print_on_click_two()
 {
 
 }
-
-void print_hollow_three()
-{
-
-}
 void print_on_click_three()
-{
-
-}
-
-void print_hollow_four()
 {
 
 }
@@ -104,9 +117,9 @@ void print_on_click_four()
 int choose_map()
 {
     mvprintw(13, 60, "Please, choose map, you want to play on");
-    mvprintw(15, 60, "+-----+    +-----+    +-----+    +-----+");
+    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
     print_on_click_one();
-    mvprintw(17, 60, "+-----+    +-----+    +-----+    +-----+");
+    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
     move(0, 0);
 
     int wait;
@@ -121,55 +134,55 @@ int choose_map()
             {
                 pos++;
             }
-            if (pos == 1)
-            {
-                print_on_click_play();
-                print_hollow_map();
-                print_hollow_exit();
-                move(0, 0);
-            }
-            else if (pos == 2)
-            {
-                print_hollow_play();
-                print_on_click_map();
-                print_hollow_exit();
-                move(0, 0);
-            }
-            else if (pos == 3)
-            {
-                print_hollow_play();
-                print_hollow_map();
-                print_on_click_exit();
-                move(0, 0);
-            }
-        }
-        else if (wait == 'W' || wait == 'w' || wait == KEY_UP)
-        {
-            if (pos > 1)
-            {
-                pos--;
-            }
-            if (pos == 1)
-            {
-                print_on_click_play();
-                print_hollow_map();
-                print_hollow_exit();
-                move(0, 0);
-            }
-            else if (pos == 2)
-            {
-                print_hollow_play();
-                print_on_click_map();
-                print_hollow_exit();
-                move(0, 0);
-            }
-            else if (pos == 3)
-            {
-                print_hollow_play();
-                print_hollow_map();
-                print_on_click_exit();
-                move(0, 0);
-            }
+//            if (pos == 1)
+//            {
+//                print_on_click_play();
+//                print_hollow_map();
+//                print_hollow_exit();
+//                move(0, 0);
+//            }
+//            else if (pos == 2)
+//            {
+//                print_hollow_play();
+//                print_on_click_map();
+//                print_hollow_exit();
+//                move(0, 0);
+//            }
+//            else if (pos == 3)
+//            {
+//                print_hollow_play();
+//                print_hollow_map();
+//                print_on_click_exit();
+//                move(0, 0);
+//            }
+//        }
+//        else if (wait == 'W' || wait == 'w' || wait == KEY_UP)
+//        {
+//            if (pos > 1)
+//            {
+//                pos--;
+//            }
+//            if (pos == 1)
+//            {
+//                print_on_click_play();
+//                print_hollow_map();
+//                print_hollow_exit();
+//                move(0, 0);
+//            }
+//            else if (pos == 2)
+//            {
+//                print_hollow_play();
+//                print_on_click_map();
+//                print_hollow_exit();
+//                move(0, 0);
+//            }
+//            else if (pos == 3)
+//            {
+//                print_hollow_play();
+//                print_hollow_map();
+//                print_on_click_exit();
+//                move(0, 0);
+//            }
         }
         else if (wait == '\n' && pos == 1)
         {
