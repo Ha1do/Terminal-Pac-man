@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <curses.h>
 #include <time.h>
+#include "menu_buttons.h"
 
 #define PACMAN '@'
 #define BLINKY 'B'
@@ -26,6 +27,101 @@
 //#define SCARED_PAIR 8
 #define LIN 40
 #define COL 120
+
+int print_menu()
+{
+
+    int wait;
+    move(10, 60);
+    printw("Welcome to the \"Terminal Pacman Game\"\n");
+    int pos = 1;
+    print_on_click_play();
+    print_hollow_map();
+    print_hollow_exit();
+    move(0, 0);
+
+    cbreak();
+    noecho();
+    fflush(stdin);
+    do
+    {
+        wait = getch();
+        if (wait == 'S' || wait == 's' || wait == KEY_DOWN)
+        {
+            if (pos < 3)
+            {
+                pos++;
+            }
+            if (pos == 1)
+            {
+                print_on_click_play();
+                print_hollow_map();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 2)
+            {
+                print_hollow_play();
+                print_on_click_map();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 3)
+            {
+                print_hollow_play();
+                print_hollow_map();
+                print_on_click_exit();
+                move(0, 0);
+            }
+        }
+        else if (wait == 'W' || wait == 'w' || wait == KEY_UP)
+        {
+            if (pos > 1)
+            {
+                pos--;
+            }
+            if (pos == 1)
+            {
+                print_on_click_play();
+                print_hollow_map();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 2)
+            {
+                print_hollow_play();
+                print_on_click_map();
+                print_hollow_exit();
+                move(0, 0);
+            }
+            else if (pos == 3)
+            {
+                print_hollow_play();
+                print_hollow_map();
+                print_on_click_exit();
+                move(0, 0);
+            }
+        }
+        else if (wait == '\n' && pos == 1)
+        {
+            return pos;
+        }
+        else if (wait == '\n' && pos == 2)
+        {
+
+        }
+        else if (wait == '\n' && pos == 3)
+        {
+            return pos;
+        }
+    }while (wait != '\n');
+
+
+//    move(0, 0);
+//
+//    refresh();
+return 0;
+}
 
 void print_gamefield(const int height, const int weight, const char map[height][weight],
                      const int lives, const int score, const int high_score, const int time)

@@ -68,10 +68,17 @@ int main()
     init_pair(PINKY_PAIR,COLOR_MAGENTA,COLOR_MAGENTA);
     init_pair(INKY_PAIR,COLOR_GREEN,COLOR_GREEN);
     init_pair(CLYDE_PAIR,COLOR_CYAN,COLOR_CYAN);
+
+    init_pair(9,COLOR_BLACK,COLOR_WHITE);
     // ? END OF COLORING
+
+    int game_map;
+    game_map = print_menu();
 
     delta_time = get_game_time(time);
     print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+    clear();
+    refresh();
 
     int key_pressed;
     char last_move = '0';
