@@ -9,19 +9,10 @@ int main()
 {
     // ! read info from file
     FILE *fp;
-    FILE *hs;
 
     int weight, height, Ox, Oy, Px, Py, Bx, By, Cx, Cy, Ix, Iy;
     int lives = 3, score = 0, time = 0;
     int highest_score;
-
-    hs = fopen("/root/GitLab/test-dir/ps6_the_game/lvl1_high_score.txt", "r");
-    if(hs == NULL){
-        printf("Error opening file.\n");
-        exit(EXIT_FAILURE);
-    }
-    fscanf(hs, "%d", &highest_score);
-    fclose(hs);
 
     fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
     if(fp == NULL){
@@ -29,8 +20,8 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    fscanf(fp, "weight=%d, height=%d, Ox=%d, Oy=%d, Px=%d, Py=%d, Bx=%d, By=%d, Cx=%d, Cy=%d, Ix=%d, Iy=%d\n",
-           &weight, &height, &Ox, &Oy, &Px, &Py, &Bx, &By, &Cx, &Cy, &Ix, &Iy);
+    fscanf(fp, "weight=%d, height=%d, highest_score=%d, Ox=%d, Oy=%d, Px=%d, Py=%d, Bx=%d, By=%d, Cx=%d, Cy=%d, Ix=%d, Iy=%d\n",
+           &weight, &height, &highest_score, &Ox, &Oy, &Px, &Py, &Bx, &By, &Cx, &Cy, &Ix, &Iy);
 
     char map[height][weight];
     for (int i = 0; i < height; i++) {
@@ -124,11 +115,25 @@ int main()
 //            pacman = mv_pacman_left(map,pacman);
 //            last_move = 'l';
         }
-//        else if(key_pressed == 'S' || key_pressed == 's' || key_pressed == KEY_DOWN)
-//        {
+        else if(key_pressed == 'S' || key_pressed == 's' || key_pressed == KEY_DOWN)
+        {
+            if (is_wall_d(Oy, Ox, height, weight, map))
+            {
+                score = move_pacman_d(Oy, Ox, height, weight, map, score);
+                Oy++;
+            }
+
+            clear();
+            print_gamefield(height, weight, map, lives, score, highest_score, time);
+            refresh();
+            if (score > 10000)
+            {
+                printw("dead by ghost\n");
+//                lives--;
+            }
 //            pacman = mv_pacman_down(map,pacman);
 //            last_move = 'd';
-//        }
+        }
 //        else if(key_pressed == 'W' || key_pressed == 'w' || key_pressed == KEY_UP)
 //        {
 //            pacman = mv_pacman_up(map,pacman);
