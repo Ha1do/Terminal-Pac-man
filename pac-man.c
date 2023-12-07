@@ -11,7 +11,7 @@ int main()
     FILE *fp;
 
     int weight, height, Ox, Oy, Px, Py, Bx, By, Cx, Cy, Ix, Iy;
-    int lives = 3, score = 0, time = 0;
+    int lives = 3, score = 0, delta_time, time = get_stert_time();
     int highest_score;
 
     fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
@@ -70,10 +70,11 @@ int main()
     init_pair(CLYDE_PAIR,COLOR_CYAN,COLOR_CYAN);
     // ? END OF COLORING
 
-    print_gamefield(height, weight, map, lives, score, highest_score, time);
+    delta_time = get_game_time(time);
+    print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
 
     int key_pressed;
-//    char last_move = '0';
+    char last_move = '0';
     halfdelay(3);
     do{
         fflush(stdin);
@@ -86,7 +87,9 @@ int main()
             }
 
             clear();
-            print_gamefield(height, weight, map, lives, score, highest_score, time);
+
+            delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
             refresh();
             if (score > 10000)
             {
@@ -94,7 +97,7 @@ int main()
 //                lives--;
             }
 //            pacman = mv_pacman_right(map,pacman);
-//            last_move = 'r';
+            last_move = 'r';
         }
         else if(key_pressed == 'A' || key_pressed == 'a' || key_pressed == KEY_LEFT)
         {
@@ -105,7 +108,8 @@ int main()
             }
 
             clear();
-            print_gamefield(height, weight, map, lives, score, highest_score, time);
+            delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
             refresh();
             if (score > 10000)
             {
@@ -113,7 +117,7 @@ int main()
 //                lives--;
             }
 //            pacman = mv_pacman_left(map,pacman);
-//            last_move = 'l';
+            last_move = 'l';
         }
         else if(key_pressed == 'S' || key_pressed == 's' || key_pressed == KEY_DOWN)
         {
@@ -124,7 +128,8 @@ int main()
             }
 
             clear();
-            print_gamefield(height, weight, map, lives, score, highest_score, time);
+            delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
             refresh();
             if (score > 10000)
             {
@@ -132,24 +137,103 @@ int main()
 //                lives--;
             }
 //            pacman = mv_pacman_down(map,pacman);
-//            last_move = 'd';
+            last_move = 'd';
         }
-//        else if(key_pressed == 'W' || key_pressed == 'w' || key_pressed == KEY_UP)
-//        {
+        else if(key_pressed == 'W' || key_pressed == 'w' || key_pressed == KEY_UP)
+        {
+            if (is_wall_u(Oy, Ox, height, weight, map))
+            {
+                score = move_pacman_u(Oy, Ox, height, weight, map, score);
+                Oy--;
+            }
+
+            clear();
+            delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+            refresh();
+            if (score > 10000)
+            {
+                printw("dead by ghost\n");
+//                lives--;
+            }
 //            pacman = mv_pacman_up(map,pacman);
-//            last_move = 'u';
-//        }
-//        else
-//        {
-//            if(last_move == 'r')
-//                pacman = mv_pacman_right(map,pacman);
-//            if(last_move == 'l')
-//                pacman = mv_pacman_left(map,pacman);
-//            if(last_move == 'd')
-//                pacman = mv_pacman_down(map,pacman);
-//            if(last_move == 'u')
-//                pacman = mv_pacman_up(map,pacman);
-//        }
+            last_move = 'u';
+        }
+        else
+        {
+            if(last_move == 'r')
+            {
+                if (is_wall_r(Oy, Ox, height, weight, map))
+                {
+                    score = move_pacman_r(Oy, Ox, height, weight, map, score);
+                    Ox++;
+                }
+
+                clear();
+                delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+                refresh();
+                if (score > 10000)
+                {
+                    printw("dead by ghost\n");
+//                lives--;
+                }
+            }
+            if(last_move == 'l')
+            {
+                if (is_wall_l(Oy, Ox, height, weight, map))
+                {
+                    score = move_pacman_l(Oy, Ox, height, weight, map, score);
+                    Ox--;
+                }
+
+                clear();
+                delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+                refresh();
+                if (score > 10000)
+                {
+                    printw("dead by ghost\n");
+//                lives--;
+                }
+            }
+            if(last_move == 'd')
+            {
+                if (is_wall_d(Oy, Ox, height, weight, map))
+                {
+                    score = move_pacman_d(Oy, Ox, height, weight, map, score);
+                    Oy++;
+                }
+
+                clear();
+                delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+                refresh();
+                if (score > 10000)
+                {
+                    printw("dead by ghost\n");
+//                lives--;
+                }
+            }
+            if(last_move == 'u')
+            {
+                if (is_wall_u(Oy, Ox, height, weight, map))
+                {
+                    score = move_pacman_u(Oy, Ox, height, weight, map, score);
+                    Oy--;
+                }
+
+                clear();
+                delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+                refresh();
+                if (score > 10000)
+                {
+                    printw("dead by ghost\n");
+//                lives--;
+                }
+            }
+        }
 ////        if(pacman.power_up == 1 && time == 0)
 ////        {
 ////            pacman.power_up = 0;
@@ -237,6 +321,8 @@ int main()
 //        inky = inky_movement(map, inky, pacman, blinky);
 //        clyde = clyde_movement(map, clyde, pacman);
 //        display_map(map,pacman,blinky,inky,pinky,clyde);
+        delta_time =  get_game_time(time);
+            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
     }while(((key_pressed = getch())!= 'x')/* && (pacman_life > 0) && (pacman.score < 995)*/);
 
 

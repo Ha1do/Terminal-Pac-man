@@ -147,7 +147,7 @@ int move_pacman_l(const int Oy, const int Ox, const int height, const int weight
 
 bool is_wall_d(const int Oy, const int Ox, const int height, const int weight, char map[height][weight])
 {
-    if (map[Oy - 1][Ox] != '#' && map[Oy - 1][Ox + 1] != '#')
+    if (map[Oy + 1][Ox] != '#' && map[Oy + 1][Ox + 1] != '#')
     {
         return true;
     }
@@ -156,31 +156,68 @@ bool is_wall_d(const int Oy, const int Ox, const int height, const int weight, c
 }
 int move_pacman_d(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
 {
-    if (map[Oy + 1][Ox] == '_' && map[Oy + 1][Ox + 1] == '_')
-    {
-        map[Oy][Ox] = '_';
-        map[Oy][Ox + 1] = '_';
-        map[Oy + 1][Ox] = '@';
-        map[Oy + 1][Ox + 1] = '@';
-        return score;
-    }
-    else if ((map[Oy + 1][Ox] == '.' && map[Oy + 1][Ox + 1] == '_') || (map[Oy + 1][Ox] == '_' && map[Oy + 1][Ox + 1] == '.'))
+    if (map[Oy + 1][Ox] == '.')
     {
         score++;
-        map[Oy][Ox] = '_';
-        map[Oy][Ox + 1] = '_';
-        map[Oy + 1][Ox] = '@';
-        map[Oy + 1][Ox + 1] = '@';
-        return score;
     }
-    else if (map[Oy + 1][Ox] == '.' && map[Oy + 1][Ox + 1] == '.')
+    if (map[Oy + 1][Ox + 1] == '.')
     {
-        score+=2;
-        map[Oy][Ox] = '_';
-        map[Oy][Ox + 1] = '_';
-        map[Oy + 1][Ox] = '@';
-        map[Oy + 1][Ox + 1] = '@';
-        return score;
+        score++;
     }
+    map[Oy][Ox] = '_';
+    map[Oy][Ox + 1] = '_';
+    map[Oy + 1][Ox] = '@';
+    map[Oy + 1][Ox + 1] = '@';
     return score;
+
+}
+
+bool is_wall_u(const int Oy, const int Ox, const int height, const int weight, char map[height][weight])
+{
+    if (map[Oy - 1][Ox] != '#' && map[Oy - 1][Ox + 1] != '#')
+    {
+        return true;
+    }
+    else
+        return false;
+}
+int move_pacman_u(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
+{
+    if (map[Oy - 1][Ox] == '.')
+    {
+        score++;
+    }
+    if (map[Oy - 1][Ox + 1] == '.')
+    {
+        score++;
+    }
+    map[Oy][Ox] = '_';
+    map[Oy][Ox + 1] = '_';
+    map[Oy - 1][Ox] = '@';
+    map[Oy - 1][Ox + 1] = '@';
+    return score;
+}
+
+int get_stert_time()
+{
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    int seconds = timeinfo->tm_hour * 3600 + timeinfo->tm_min * 60 + timeinfo->tm_sec;
+    return seconds;
+}
+
+int get_game_time(const int ti)
+{
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    int seconds = timeinfo->tm_hour * 3600 + timeinfo->tm_min * 60 + timeinfo->tm_sec;
+    return seconds - ti;
 }
