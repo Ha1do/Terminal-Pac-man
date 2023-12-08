@@ -28,13 +28,13 @@
 #define LIN 40
 #define COL 120
 
-int print_menu(int* diff)
+int print_menu(int game_map, int* diff)
 {
 
     int wait;
     move(10, 60);
     printw("Welcome to the \"Terminal Pacman Game\"\n");
-    int pos = 1, map = 1;
+    int pos = 1, map = game_map;
     //diff 3 - easy; 2 - normal; 1 - hard
     print_on_click_play(map);
     print_hollow_map();
@@ -134,7 +134,8 @@ int print_menu(int* diff)
         {
             clear();
             map = choose_map();
-            print_menu(diff);
+            clear();
+            print_menu(map, diff);
         }
         else if (wait == '\n' && pos == 3)
         {
@@ -148,7 +149,7 @@ int print_menu(int* diff)
         }
     }while (wait != '\n');
 
-return 0;
+return map;
 }
 
 void print_gamefield(const int height, const int weight, const char map[height][weight],

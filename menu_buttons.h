@@ -83,43 +83,106 @@ void print_on_click_exit()
 }
 
 // ! CHOOSE MAP MENU BUTTONS
+//|       |    |       |    |       |    |       |
+//|   1   |    |   2   |    |   3   |    |   4   |
+//|       |    |       |    |       |    |       |
 void print_on_click_one()
 {
+    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
+
     mvprintw(16, 57, "|");
     attron(COLOR_PAIR(9));
     mvprintw(16, 58, "       ");
     attroff(COLOR_PAIR(9));
     mvprintw(16, 65, "|    |       |    |       |    |       |");
+
     mvprintw(17, 57, "|");
     attron(COLOR_PAIR(9));
     mvprintw(17, 58, "   1   ");
     attroff(COLOR_PAIR(9));
     mvprintw(17, 65, "|    |   2   |    |   3   |    |   4   |");
+
     mvprintw(18, 57, "|");
     attron(COLOR_PAIR(9));
     mvprintw(18, 58, "       ");
     attroff(COLOR_PAIR(9));
     mvprintw(18, 65, "|    |       |    |       |    |       |");
+
+    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
 }
 void print_on_click_two()
 {
+    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
+    mvprintw(16, 57, "|       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(16, 71, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(16, 78,"|    |       |    |       |");
 
+    mvprintw(17, 57, "|   1   |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(17, 71, "   2   ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(17, 78,"|    |   3   |    |   4   |");
+
+    mvprintw(18, 57, "|       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(18, 71, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(18, 78,"|    |       |    |       |");
+    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
 }
 void print_on_click_three()
 {
+    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
 
+    mvprintw(16, 57, "|       |    |       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(16, 84, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(16, 91, "|    |       |");
+
+    mvprintw(17, 57, "|   1   |    |   2   |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(17, 84, "   3   ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(17, 91, "|    |   4   |");
+
+    mvprintw(18, 57, "|       |    |       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(18, 84, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(18, 91, "|    |       |");
+
+    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
 }
 void print_on_click_four()
 {
+    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
+    mvprintw(16, 57, "|       |    |       |    |       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(16, 97, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(16, 104, "|");
 
+    mvprintw(17, 57, "|   1   |    |   2   |    |   3   |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(17, 97, "   4   ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(17, 104, "|");
+
+    mvprintw(18, 57, "|       |    |       |    |       |    |");
+    attron(COLOR_PAIR(9));
+    mvprintw(18, 97, "       ");
+    attroff(COLOR_PAIR(9));
+    mvprintw(18, 104, "|");
+    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
 }
 
 int choose_map()
 {
     mvprintw(13, 60, "Please, choose map, you want to play on");
-    mvprintw(15, 57, "+-------+    +-------+    +-------+    +-------+");
     print_on_click_one();
-    mvprintw(19, 57, "+-------+    +-------+    +-------+    +-------+");
     move(0, 0);
 
     int wait;
@@ -128,77 +191,70 @@ int choose_map()
     do
     {
         wait = getch();
-        if (wait == 'S' || wait == 's' || wait == KEY_DOWN)
+        if (wait == 'A' || wait == 'a' || wait == KEY_LEFT)
         {
-            if (pos < 3)
+            if (pos > 1)
+            {
+                pos--;
+            }
+            switch (pos)
+            {
+                case 1:
+                    print_on_click_one();
+                    move(0, 0);
+                    break;
+                case 2:
+                    print_on_click_two();
+                    move(0, 0);
+                    break;
+                case 3:
+                    print_on_click_three();
+                    move(0, 0);
+                    break;
+                case 4:
+                    print_on_click_four();
+                    move(0, 0);
+                    break;
+                default:
+                    print_on_click_one();
+                    move(0, 0);
+            }
+        }
+        else if (wait == 'D' || wait == 'd' || wait == KEY_RIGHT)
+        {
+            if (pos < 4)
             {
                 pos++;
             }
-//            if (pos == 1)
-//            {
-//                print_on_click_play();
-//                print_hollow_map();
-//                print_hollow_exit();
-//                move(0, 0);
-//            }
-//            else if (pos == 2)
-//            {
-//                print_hollow_play();
-//                print_on_click_map();
-//                print_hollow_exit();
-//                move(0, 0);
-//            }
-//            else if (pos == 3)
-//            {
-//                print_hollow_play();
-//                print_hollow_map();
-//                print_on_click_exit();
-//                move(0, 0);
-//            }
-//        }
-//        else if (wait == 'W' || wait == 'w' || wait == KEY_UP)
-//        {
-//            if (pos > 1)
-//            {
-//                pos--;
-//            }
-//            if (pos == 1)
-//            {
-//                print_on_click_play();
-//                print_hollow_map();
-//                print_hollow_exit();
-//                move(0, 0);
-//            }
-//            else if (pos == 2)
-//            {
-//                print_hollow_play();
-//                print_on_click_map();
-//                print_hollow_exit();
-//                move(0, 0);
-//            }
-//            else if (pos == 3)
-//            {
-//                print_hollow_play();
-//                print_hollow_map();
-//                print_on_click_exit();
-//                move(0, 0);
-//            }
+            switch (pos)
+            {
+                case 1:
+                    print_on_click_one();
+                    move(0, 0);
+                    break;
+                case 2:
+                    print_on_click_two();
+                    move(0, 0);
+                    break;
+                case 3:
+                    print_on_click_three();
+                    move(0, 0);
+                    break;
+                case 4:
+                    print_on_click_four();
+                    move(0, 0);
+                    break;
+                default:
+                    print_on_click_one();
+                    move(0, 0);
+            }
         }
-        else if (wait == '\n' && pos == 1)
+        else if (wait == '\n')
         {
             return pos;
-        }
-        else if (wait == '\n' && pos == 2)
-        {
-            clear();
-            return choose_map();
-        }
-        else if (wait == '\n' && pos == 3)
-        {
-            return 5;
         }
     }while (wait != '\n');
 
     getch();
-    return 1;
+    return pos;
 }

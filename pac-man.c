@@ -20,8 +20,8 @@ int main()
     init_pair(9,COLOR_BLACK,COLOR_WHITE);
 
     int difficulty = 2;
-    int game_map;
-    game_map = print_menu(&difficulty);
+    int game_map = 1;
+    game_map = print_menu(game_map, &difficulty);
 
     // ! read info from file
     FILE *fp;
