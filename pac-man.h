@@ -7,6 +7,7 @@
 #include <curses.h>
 #include <time.h>
 #include "menu_buttons.h"
+#include "choose_diff_menu.h"
 
 #define PACMAN '@'
 #define BLINKY 'B'
@@ -135,12 +136,14 @@ int print_menu(int game_map, int* diff)
             clear();
             map = choose_map();
             clear();
-            print_menu(map, diff);
+            map = print_menu(map, diff);
         }
         else if (wait == '\n' && pos == 3)
         {
             clear();
-
+            *diff = choose_difficulty();
+            clear();
+            print_menu(map, diff);
         }
         else if (wait == '\n' && pos == 4)
         {

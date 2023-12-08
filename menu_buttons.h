@@ -59,7 +59,7 @@ void print_on_click_options()
     mvprintw(19, 71, "+--------------+");
     mvprintw(20, 71, "|");
     attron(COLOR_PAIR(9));
-    mvprintw(20, 75, "OPTIONS");
+    mvprintw(20, 76, "OPTIONS");
     attroff(COLOR_PAIR(9));
     mvprintw(20, 86, "|");
     mvprintw(21, 71, "+--------------+");
@@ -255,6 +255,5 @@ int choose_map()
         }
     }while (wait != '\n');
 
-    getch();
     return pos;
 }
