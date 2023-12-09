@@ -285,7 +285,7 @@ int move_pacman_l(const int Oy, const int Ox, bool* dead, const int height, cons
 
 bool is_wall_d(const int Oy, const int Ox, const int height, const int weight, char map[height][weight])
 {
-    if (map[Oy + 1][Ox] != '#' && map[Oy + 1][Ox + 1] != '#')
+    if (map[Oy + 1][Ox] != '#' && map[Oy + 1][Ox + 1] != '#' && map[Oy + 1][Ox] != '-' && map[Oy + 1][Ox + 1] != '-')
     {
         return true;
     }
