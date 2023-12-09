@@ -8,6 +8,7 @@
 #include <time.h>
 #include "menu_buttons.h"
 #include "choose_diff_menu.h"
+#include "ghosts_movement.h"
 
 #define PACMAN '@'
 #define BLINKY 'B'
@@ -227,7 +228,7 @@ bool is_wall_r(const int Oy, const int Ox, const int height, const int weight, c
     else
         return false;
 }
-int move_pacman_r(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
+int move_pacman_r(const int Oy, const int Ox, bool* dead, const int height, const int weight, char map[height][weight], int score)
 {
         if (map[Oy][Ox + 2] == '_')
         {
@@ -242,6 +243,10 @@ int move_pacman_r(const int Oy, const int Ox, const int height, const int weight
             map[Oy][Ox + 2] = '@';
             return score;
         }
+        else if (map[Oy][Ox + 2] == 'P' || map[Oy][Ox + 2] == 'I' || map[Oy][Ox + 2] == 'C' || map[Oy][Ox + 2] == 'B')
+        {
+            *dead = true;
+        }
     return score;
 }
 
@@ -254,7 +259,7 @@ bool is_wall_l(const int Oy, const int Ox, const int height, const int weight, c
     else
         return false;
 }
-int move_pacman_l(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
+int move_pacman_l(const int Oy, const int Ox, bool* dead, const int height, const int weight, char map[height][weight], int score)
 {
     if (map[Oy][Ox - 1] == '_')
     {
@@ -269,6 +274,10 @@ int move_pacman_l(const int Oy, const int Ox, const int height, const int weight
         map[Oy][Ox - 1] = '@';
         return score;
     }
+    else if (map[Oy][Ox - 1] == 'C' || map[Oy][Ox - 1] == 'I' || map[Oy][Ox - 1] == 'P' || map[Oy][Ox - 1] == 'B')
+    {
+        *dead = true;
+    }
     return score;
 }
 
@@ -282,7 +291,7 @@ bool is_wall_d(const int Oy, const int Ox, const int height, const int weight, c
     else
         return false;
 }
-int move_pacman_d(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
+int move_pacman_d(const int Oy, const int Ox, bool* dead, const int height, const int weight, char map[height][weight], int score)
 {
     if (map[Oy + 1][Ox] == '.')
     {
@@ -291,6 +300,13 @@ int move_pacman_d(const int Oy, const int Ox, const int height, const int weight
     if (map[Oy + 1][Ox + 1] == '.')
     {
         score++;
+    }
+    if (map[Oy + 1][Ox] == 'C' || map[Oy + 1][Ox + 1] == 'C' ||
+        map[Oy + 1][Ox] == 'I' || map[Oy + 1][Ox + 1] == 'I' ||
+        map[Oy + 1][Ox] == 'P' || map[Oy + 1][Ox + 1] == 'P' ||
+        map[Oy + 1][Ox] == 'B' || map[Oy + 1][Ox + 1] == 'B')
+    {
+        *dead = true;
     }
     map[Oy][Ox] = '_';
     map[Oy][Ox + 1] = '_';
@@ -309,7 +325,7 @@ bool is_wall_u(const int Oy, const int Ox, const int height, const int weight, c
     else
         return false;
 }
-int move_pacman_u(const int Oy, const int Ox, const int height, const int weight, char map[height][weight], int score)
+int move_pacman_u(const int Oy, const int Ox, bool* dead, const int height, const int weight, char map[height][weight], int score)
 {
     if (map[Oy - 1][Ox] == '.')
     {
@@ -318,6 +334,13 @@ int move_pacman_u(const int Oy, const int Ox, const int height, const int weight
     if (map[Oy - 1][Ox + 1] == '.')
     {
         score++;
+    }
+    if (map[Oy - 1][Ox] == 'C' || map[Oy - 1][Ox + 1] == 'C' ||
+        map[Oy - 1][Ox] == 'I' || map[Oy - 1][Ox + 1] == 'I' ||
+        map[Oy - 1][Ox] == 'P' || map[Oy - 1][Ox + 1] == 'P' ||
+        map[Oy - 1][Ox] == 'B' || map[Oy - 1][Ox + 1] == 'B')
+    {
+        *dead = true;
     }
     map[Oy][Ox] = '_';
     map[Oy][Ox + 1] = '_';

@@ -1,6 +1,7 @@
 //
 // Created by Ha1do on 05.12.2023.
 // -std=c11 -Werror -Wall -Wno-vla-parameter -lcurses
+#include <unistd.h>
 #include "pac-man.h"
 
 
@@ -119,88 +120,97 @@ int main()
 
     int key_pressed;
     char last_move = '0';
+    int tick = 0;
+    int clyde_moves = 0, inky_moves = 0, pinky_moves = 0, blinky_moves = 0;
+    char clyde_smer, inky_smer, pinky_smer, blinky_smer;
+    bool is_dead = false;
     halfdelay(difficulty);
     do{
         fflush(stdin);
+        if (game_map == 1 && tick == 30)
+        {
+            map[9][16] = '_';
+            map[9][17] = '_';
+        }
+//        else if (game_map == 2 && tick == 30)
+//        {
+//            map[9][16] = '_';
+//            map[9][17] = '_'; TODO
+//        }
+//        else if (game_map == 3 && tick == 30)
+//        {
+//            map[9][16] = '_';
+//            map[9][17] = '_';
+//        }
+//        else if (game_map == 4 && tick == 30)
+//        {
+//            map[9][16] = '_';
+//            map[9][17] = '_';
+//        }
+
+//        if (pacman dead) todo
+
         if(key_pressed == 'D' || key_pressed == 'd' || key_pressed == KEY_RIGHT)
         {
             if (is_wall_r(Oy, Ox, height, weight, map))
             {
-                score = move_pacman_r(Oy, Ox, height, weight, map, score);
+                score = move_pacman_r(Oy, Ox, &is_dead, height, weight, map, score);
                 Ox++;
             }
 
-            clear();
 
-            delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-            refresh();
             if (score > 10000)
             {
                 printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
             }
-//            pacman = mv_pacman_right(map,pacman);
             last_move = 'r';
         }
         else if(key_pressed == 'A' || key_pressed == 'a' || key_pressed == KEY_LEFT)
         {
             if (is_wall_l(Oy, Ox, height, weight, map))
             {
-                score = move_pacman_l(Oy, Ox, height, weight, map, score);
+                score = move_pacman_l(Oy, Ox, &is_dead, height, weight, map, score);
                 Ox--;
             }
 
-            clear();
-            delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-            refresh();
+
             if (score > 10000)
             {
                 printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
             }
-//            pacman = mv_pacman_left(map,pacman);
             last_move = 'l';
         }
         else if(key_pressed == 'S' || key_pressed == 's' || key_pressed == KEY_DOWN)
         {
             if (is_wall_d(Oy, Ox, height, weight, map))
             {
-                score = move_pacman_d(Oy, Ox, height, weight, map, score);
+                score = move_pacman_d(Oy, Ox, &is_dead, height, weight, map, score);
                 Oy++;
             }
 
-            clear();
-            delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-            refresh();
             if (score > 10000)
             {
                 printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
             }
-//            pacman = mv_pacman_down(map,pacman);
             last_move = 'd';
         }
         else if(key_pressed == 'W' || key_pressed == 'w' || key_pressed == KEY_UP)
         {
             if (is_wall_u(Oy, Ox, height, weight, map))
             {
-                score = move_pacman_u(Oy, Ox, height, weight, map, score);
+                score = move_pacman_u(Oy, Ox, &is_dead, height, weight, map, score);
                 Oy--;
             }
 
-            clear();
-            delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-            refresh();
+
             if (score > 10000)
             {
                 printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
             }
-//            pacman = mv_pacman_up(map,pacman);
             last_move = 'u';
         }
         else
@@ -209,164 +219,199 @@ int main()
             {
                 if (is_wall_r(Oy, Ox, height, weight, map))
                 {
-                    score = move_pacman_r(Oy, Ox, height, weight, map, score);
+                    score = move_pacman_r(Oy, Ox, &is_dead, height, weight, map, score);
                     Ox++;
                 }
 
-                clear();
-                delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-                refresh();
+
                 if (score > 10000)
                 {
                     printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
                 }
             }
             if(last_move == 'l')
             {
                 if (is_wall_l(Oy, Ox, height, weight, map))
                 {
-                    score = move_pacman_l(Oy, Ox, height, weight, map, score);
+                    score = move_pacman_l(Oy, Ox, &is_dead, height, weight, map, score);
                     Ox--;
                 }
 
-                clear();
-                delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-                refresh();
+
                 if (score > 10000)
                 {
                     printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
                 }
             }
             if(last_move == 'd')
             {
                 if (is_wall_d(Oy, Ox, height, weight, map))
                 {
-                    score = move_pacman_d(Oy, Ox, height, weight, map, score);
+                    score = move_pacman_d(Oy, Ox, &is_dead, height, weight, map, score);
                     Oy++;
                 }
 
-                clear();
-                delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-                refresh();
+
                 if (score > 10000)
                 {
                     printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
                 }
             }
             if(last_move == 'u')
             {
                 if (is_wall_u(Oy, Ox, height, weight, map))
                 {
-                    score = move_pacman_u(Oy, Ox, height, weight, map, score);
+                    score = move_pacman_u(Oy, Ox, &is_dead, height, weight, map, score);
                     Oy--;
                 }
 
-                clear();
-                delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
-                refresh();
+
                 if (score > 10000)
                 {
                     printw("dead by ghost\n");
-//                lives--;
+//                lives--; TODO
                 }
             }
         }
 ////        if(pacman.power_up == 1 && time == 0)
 ////        {
 ////            pacman.power_up = 0;
-////            time = 25;
+////            time = 25; TODO
 ////        }
 ////        else if(pacman.power_up == 1 && time != 0)
 ////            time--;
-//        if(clyde.last_move == 'k')
+
+        // ! ghosts movement
+//        if (tick < 35) TODO ?????
 //        {
-//            map[clyde.x0][clyde.y0] = FOOD;
-//            map[clyde.x1][clyde.y1] = FOOD;
-//            map[clyde.x2][clyde.y2] = FOOD;
-//            map[clyde.x3][clyde.y3] = FOOD;
-//            map[clyde.x4][clyde.y4] = FOOD;
-//            map[clyde.x5][clyde.y5] = FOOD;
-//            map[clyde.x6][clyde.y6] = FOOD;
-//            map[clyde.x7][clyde.y7] = FOOD;
-//            map[clyde.x8][clyde.y8] = FOOD;
-//            clyde = ini_ghost(clyde_kills,'r',CLYDE,map,20,61,20,62,20,63,21,61,21,62,21,63,22,61,22,62,22,63);
-//            display_map(map,pacman,blinky,inky,pinky,clyde);
+//            Cx = clyde_move_side_to_side(Cy, Cx, height, weight, map);
+//            Ix = inky_move_side_to_side(Iy, Ix, height, weight, map);
+//            Px = pinky_move_side_to_side(Py, Px, height, weight, map);
+//            Bx = blinky_move_side_to_side(By, Bx, height, weight, map);
 //        }
-//        if(inky.last_move == 'k')
+//        else if (tick < 40)
 //        {
-//            map[inky.x0][inky.y0] = FOOD;
-//            map[inky.x1][inky.y1] = FOOD;
-//            map[inky.x2][inky.y2] = FOOD;
-//            map[inky.x3][inky.y3] = FOOD;
-//            map[inky.x4][inky.y4] = FOOD;
-//            map[inky.x5][inky.y5] = FOOD;
-//            map[inky.x6][inky.y6] = FOOD;
-//            map[inky.x7][inky.y7] = FOOD;
-//            map[inky.x8][inky.y8] = FOOD;
-//            inky = ini_ghost(inky_kills,'n',INKY,map,20,57,20,58,20,59,21,57,21,58,21,59,22,57,22,58,22,59);
-//            display_map(map,pacman,blinky,inky,pinky,clyde);        }
-//        if(pinky.last_move == 'k')
-//        {
-//            map[pinky.x0][pinky.y0] = FOOD;
-//            map[pinky.x1][pinky.y1] = FOOD;
-//            map[pinky.x2][pinky.y2] = FOOD;
-//            map[pinky.x3][pinky.y3] = FOOD;
-//            map[pinky.x4][pinky.y4] = FOOD;
-//            map[pinky.x5][pinky.y5] = FOOD;
-//            map[pinky.x6][pinky.y6] = FOOD;
-//            map[pinky.x7][pinky.y7] = FOOD;
-//            map[pinky.x8][pinky.y8] = FOOD;
-//            pinky = ini_ghost(pinky_kills,'n',PINKY,map,16,61,16,62,16,63,17,61,17,62,17,63,18,61,18,62,18,63);
-//            display_map(map,pacman,blinky,inky,pinky,clyde);
+//            Ix = inky_move_side_to_side(Iy, Ix, height, weight, map);
+//            Px = pinky_move_side_to_side(Py, Px, height, weight, map);
+//            Bx = blinky_move_side_to_side(By, Bx, height, weight, map);
 //        }
-//        if(blinky.last_move == 'k')
+//        else if (tick < 45)
 //        {
-//            map[blinky.x0][blinky.y0] = FOOD;
-//            map[blinky.x1][blinky.y1] = FOOD;
-//            map[blinky.x2][blinky.y2] = FOOD;
-//            map[blinky.x3][blinky.y3] = FOOD;
-//            map[blinky.x4][blinky.y4] = FOOD;
-//            map[blinky.x5][blinky.y5] = FOOD;
-//            map[blinky.x6][blinky.y6] = FOOD;
-//            map[blinky.x7][blinky.y7] = FOOD;
-//            map[blinky.x8][blinky.y8] = FOOD;
-//            blinky = ini_ghost(blinky_kills,'n',BLINKY,map,16,57,16,58,16,59,17,57,17,58,17,59,18,57,18,58,18,59);
-//            display_map(map,pacman,blinky,inky,pinky,clyde);
+//            Px = pinky_move_side_to_side(Py, Px, height, weight, map);
+//            Bx = blinky_move_side_to_side(By, Bx, height, weight, map);
 //        }
-//        if((blinky.kills != blinky_kills) || (pinky.kills != pinky_kills) || (inky.kills != inky_kills) || (clyde.kills != clyde_kills))
+//        else if (tick < 50)
 //        {
-//            pacman_life--;
-//            if(pacman_life != 0)
-//            {
-//                map = ini_map();
-//                build_walls(map);
-//                blinky_kills = blinky.kills;
-//                pinky_kills = pinky.kills;
-//                inky_kills = inky.kills;
-//                clyde_kills = clyde.kills;
-//                pacman = ini_pacman(map,2,2,2,3,2,4,3,2,3,3,3,4,4,2,4,3,4,4,pacman_life);
-//                blinky = ini_ghost(blinky_kills,'n',BLINKY,map,16,57,16,58,16,59,17,57,17,58,17,59,18,57,18,58,18,59);
-//                pinky = ini_ghost(pinky_kills,'n',PINKY,map,16,61,16,62,16,63,17,61,17,62,17,63,18,61,18,62,18,63);
-//                inky = ini_ghost(inky_kills,'n',INKY,map,20,57,20,58,20,59,21,57,21,58,21,59,22,57,22,58,22,59);
-//                clyde = ini_ghost(clyde_kills,'n',CLYDE,map,20,61,20,62,20,63,21,61,21,62,21,63,22,61,22,62,22,63);
-//                display_map(map,pacman,blinky,inky,pinky,clyde);
-//            }
-//            // break;
+//            Bx = blinky_move_side_to_side(By, Bx), height, weight, map;
 //        }
-//        blinky = blinky_movement(map,blinky,pacman);
-//        pinky = pinky_movement(map, pinky, pacman, key_pressed, last_move);
-//        inky = inky_movement(map, inky, pacman, blinky);
-//        clyde = clyde_movement(map, clyde, pacman);
-//        display_map(map,pacman,blinky,inky,pinky,clyde);
+
+        if (tick >= 35)
+        {
+            clyde(&clyde_moves, &clyde_smer, &Cy, &Cx, &is_dead, height, weight, map);
+        }
+        if (tick >= 40)
+        {
+            inky(&inky_moves, &inky_smer, &Iy, &Ix, &is_dead, height, weight, map);
+        }
+        if (tick >= 45)
+        {
+            pinky(&pinky_moves, &pinky_smer, &Py, &Px, &is_dead, height, weight, map);
+        }
+        if (tick >= 50)
+        {
+            blinky(&blinky_moves, &blinky_smer, &By, &Bx, &is_dead, height, weight, map);
+        }
+
+        if (is_dead)
+        {
+            is_dead = false;
+            if (lives > 1)
+            {
+                lives--;
+                tick = 0;
+                score = 0;
+                time = get_stert_time();
+                if (game_map == 1)
+                {
+                    fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_1.txt", "r");
+                    if(fp == NULL){
+                        printf("Error opening file.\n");
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                else if (game_map == 2)
+                {
+                    fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_2.txt", "r");
+                    if(fp == NULL){
+                        printf("Error opening file.\n");
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                else if (game_map == 3)
+                {
+                    fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_3.txt", "r");
+                    if(fp == NULL){
+                        printf("Error opening file.\n");
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                else if (game_map == 4)
+                {
+                    fp = fopen("/root/GitLab/test-dir/ps6_the_game/level_4.txt", "r");
+                    if(fp == NULL){
+                        printf("Error opening file.\n");
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                fscanf(fp, "weight=%d, height=%d, highest_score=%d, Ox=%d, Oy=%d, Px=%d, Py=%d, Bx=%d, By=%d, Cx=%d, Cy=%d, Ix=%d, Iy=%d\n",
+                       &weight, &height, &highest_score, &Ox, &Oy, &Px, &Py, &Bx, &By, &Cx, &Cy, &Ix, &Iy);
+
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < weight; j++) {
+                        fscanf(fp, "%c", &map[i][j]);
+                    }
+                    fscanf(fp, "\n");
+                }
+
+                fclose(fp);
+                // ? END reading info from file
+
+                // ! COLORING
+                map[Oy][Ox] = '@';//PACMAN
+                map[Oy][Ox + 1] = '@';//PACMAN
+
+                map[Py][Px] = 'P';//PINKY
+                map[Py][Px + 1] = 'P';//PINKY
+
+                map[By][Bx] = 'B';//BLINKY
+                map[By][Bx + 1] = 'B';//BLINKY
+
+                map[Cy][Cx] = 'C';//CLYDE
+                map[Cy][Cx + 1] = 'C';//CLYDE
+
+                map[Iy][Ix] = 'I';//INKY
+                map[Iy][Ix + 1] = 'I';//INKY
+            }
+            else if (lives == 1)
+            {
+                clear();
+                mvprintw (30, 50, "GAME OVER");
+                refresh();
+                sleep(3);
+                endwin();
+                return 0;
+            }
+        }
+
+
+        clear();
         delta_time =  get_game_time(time);
-            print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+        print_gamefield(height, weight, map, lives, score, highest_score, delta_time);
+        refresh();
+        tick++;
     }while(((key_pressed = getch())!= 'x')/* && (pacman_life > 0) && (pacman.score < 995)*/);
 
 
