@@ -9,6 +9,7 @@
 #include "menu_buttons.h"
 #include "choose_diff_menu.h"
 #include "ghosts_movement.h"
+#include "win.h"
 
 #define PACMAN '@'
 #define BLINKY 'B'

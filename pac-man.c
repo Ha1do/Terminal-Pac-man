@@ -405,6 +405,15 @@ int main()
                 return 0;
             }
         }
+        if (is_win(height, weight, map))
+        {
+            clear();
+            mvprintw (30, 50, "CONGRATS YOU WON");
+            refresh();
+            sleep(3);
+            endwin();
+            return 0;
+        }
 
 
         clear();
