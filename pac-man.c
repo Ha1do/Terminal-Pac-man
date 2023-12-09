@@ -124,7 +124,7 @@ int main()
     char last_move = '0';
     int tick = 0;
     int clyde_moves = 0, inky_moves = 0, pinky_moves = 0, blinky_moves = 0;
-    char clyde_smer = 'N', inky_smer, pinky_smer, blinky_smer;
+    char clyde_smer = 'N', inky_smer = 'N', pinky_smer = 'N', blinky_smer = 'N';
     bool is_dead = false;
     halfdelay(difficulty);
     do{
@@ -360,18 +360,18 @@ int main()
             }
 //            clyde(&clyde_moves, &clyde_smer, &Cy, &Cx, &is_dead, height, weight, map);
         }
-//        if (tick >= 40)
-//        {
+        if (tick >= 40)
+        {
 //            inky(&inky_moves, &inky_smer, &Iy, &Ix, &is_dead, height, weight, map);
-//        }
-//        if (tick >= 45)
-//        {
+        }
+        if (tick >= 45)
+        {
 //            pinky(&pinky_moves, &pinky_smer, &Py, &Px, &is_dead, height, weight, map);
-//        }
-//        if (tick >= 50)
-//        {
+        }
+        if (tick >= 50)
+        {
 //            blinky(&blinky_moves, &blinky_smer, &By, &Bx, &is_dead, height, weight, map);
-//        }
+        }
 
         if (is_dead)
         {
@@ -445,6 +445,35 @@ int main()
             }
             else if (lives == 1)
             {
+//                if (game_map == 1)
+//                {
+//                    if (highest_score > score)
+//                    {
+//                        update_highest_score("level_1.txt", score);
+//                    }
+//                }
+//                else if (game_map == 2)
+//                {
+//                    if (highest_score > score)
+//                    {
+//                        update_highest_score("level_2.txt", score);
+//                    }
+//                }
+//                else if (game_map == 3)
+//                {
+//                    if (highest_score > score)
+//                    {
+//                        update_highest_score("level_3.txt", score);
+//                    }
+//                }
+//                else if (game_map == 4)
+//                {
+//                    if (highest_score > score)
+//                    {
+//                        update_highest_score("level_4.txt", score);
+//                    }
+//                }
+
                 clear();
                 mvprintw (30, 50, "GAME OVER");
                 refresh();
@@ -455,6 +484,35 @@ int main()
         }
         if (is_win(height, weight, map))
         {
+//            if (game_map == 1)
+//            {
+//                if (highest_score > score)
+//                {
+//                    update_highest_score("level_1.txt", score);
+//                }
+//            }
+//            else if (game_map == 2)
+//            {
+//                if (highest_score > score)
+//                {
+//                    update_highest_score("level_2.txt", score);
+//                }
+//            }
+//            else if (game_map == 3)
+//            {
+//                if (highest_score > score)
+//                {
+//                    update_highest_score("level_3.txt", score);
+//                }
+//            }
+//            else if (game_map == 4)
+//            {
+//                if (highest_score > score)
+//                {
+//                    update_highest_score("level_4.txt", score);
+//                }
+//            }
+
             clear();
             mvprintw (30, 50, "CONGRATS YOU WON");
             refresh();
