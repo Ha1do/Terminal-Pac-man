@@ -213,8 +213,8 @@ void print_gamefield(const int height, const int weight, const char map[height][
     }
     mvprintw(3, weight + 5, "You have %d lives left\n", lives);
     mvprintw(4, weight + 5, "You have %d score\n", score);
-    mvprintw(5, weight + 5, "Your highest score is %d\n", high_score);
-    mvprintw(6, weight + 5, "Time is: %d\n", time);
+//    mvprintw(5, weight + 5, "Your highest score is %d\n", high_score);
+    mvprintw(5, weight + 5, "Time is: %d\n", time);
     move(0, 0);
 
     refresh();

@@ -21,7 +21,10 @@ int main()
     }
     start_color();
     init_pair(9,COLOR_BLACK,COLOR_WHITE);
-
+    bool replay = true;
+    do{
+        clear();
+        refresh();
     int difficulty = 2;
     int game_map = 1;
     game_map = print_menu(game_map, &difficulty);
@@ -835,8 +838,7 @@ int main()
                 mvprintw (30, 50, "GAME OVER");
                 refresh();
                 sleep(3);
-                endwin();
-                return 0;
+                break;
             }
         }
         if (is_win(height, weight, map))
@@ -874,8 +876,7 @@ int main()
             mvprintw (30, 50, "CONGRATS YOU WON");
             refresh();
             sleep(3);
-            endwin();
-            return 0;
+            break;
         }
 
 
@@ -886,6 +887,7 @@ int main()
         tick++;
     }while(((key_pressed = getch())!= 'x')/* && (pacman_life > 0) && (pacman.score < 995)*/);
 
+    }while(replay);
 
     getch(); // Wait for key press before exiting
     endwin();
