@@ -835,9 +835,9 @@ int main()
 //                }
 
                 clear();
-                mvprintw (30, 50, "GAME OVER");
+                print_over(score);
                 refresh();
-                sleep(3);
+                getch();
                 break;
             }
         }
@@ -873,9 +873,9 @@ int main()
 //            }
 
             clear();
-            mvprintw (30, 50, "CONGRATS YOU WON");
+            print_win(score);
             refresh();
-            sleep(3);
+            getch();
             break;
         }
 
