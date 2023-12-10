@@ -360,16 +360,373 @@ int main()
             }
 //            clyde(&clyde_moves, &clyde_smer, &Cy, &Cx, &is_dead, height, weight, map);
         }
-        if (tick >= 40)
+        if (tick >= 70)
         {
+            bool cant_move = true;
+//            inky_smer = random_smer_gener();
+            while (cant_move)
+            {
+                switch (inky_smer)
+                {
+                    case 'N':
+                        if (map[Iy - 1][Ix] != '#' && map[Iy - 1][Ix + 1] != '#' &&
+                            map[Iy - 1][Ix] != 'B' && map[Iy - 1][Ix + 1] != 'B' &&
+                            map[Iy - 1][Ix] != 'P' && map[Iy - 1][Ix + 1] != 'P' &&
+                            map[Iy - 1][Ix] != 'C' && map[Iy - 1][Ix + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (inky_moves <= 0)
+                            {
+                                inky_moves = RSG();
+                            }
+                            if (inky_moves > 0)
+                            {
+                                if (map[Iy - 1][Ix] == '@' || map[Iy - 1][Ix + 1] == '@')
+                                {
+                                    is_dead = true;
+                                }
+                                map[Iy][Ix] = map[Iy - 1][Ix];
+                                map[Iy][Ix + 1] = map[Iy - 1][Ix + 1];
+                                map[Iy - 1][Ix] = 'I';
+                                map[Iy - 1][Ix + 1] = 'I';
+                                Iy--;
+                                inky_moves--;
+                            }
+                        }
+                        else
+                        {
+                            inky_moves = RSG();
+                            while (inky_smer == 'N')
+                            {
+                                inky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'S':
+                        if (map[Iy + 1][Ix] != '#' && map[Iy + 1][Ix + 1] != '#' &&
+                            map[Iy + 1][Ix] != 'B' && map[Iy + 1][Ix + 1] != 'B' &&
+                            map[Iy + 1][Ix] != 'P' && map[Iy + 1][Ix + 1] != 'P' &&
+                            map[Iy + 1][Ix] != 'C' && map[Iy + 1][Ix + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Iy - 1][Ix] == '@' || map[Iy - 1][Ix + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Iy][Ix] = map[Iy + 1][Ix];
+                            map[Iy][Ix + 1] = map[Iy + 1][Ix + 1];
+                            map[Iy + 1][Ix] = 'I';
+                            map[Iy + 1][Ix + 1] = 'I';
+                            Iy++;
+                            inky_moves--;
+                        }
+                        else
+                        {
+                            inky_moves = RSG();
+                            while (inky_smer == 'S')
+                            {
+                                inky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'E':
+                        if (map[Iy][Ix - 1] != '#' &&
+                            map[Iy][Ix - 1] != 'B' &&
+                            map[Iy][Ix - 1] != 'P' &&
+                            map[Iy][Ix - 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Iy - 1][Ix] == '@' || map[Iy - 1][Ix + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Iy][Ix + 1] = map[Iy][Ix - 1];
+                            map[Iy][Ix - 1] = 'I';
+                            Ix--;
+                            inky_moves--;
+                        }
+                        else
+                        {
+                            inky_moves = RSG();
+                            while (inky_smer == 'E')
+                            {
+                                inky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'W':
+                        if (map[Iy][Ix + 2] != '#' &&
+                            map[Iy][Ix + 2] != 'B' &&
+                            map[Iy][Ix + 2] != 'P' &&
+                            map[Iy][Ix + 2] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Iy - 1][Ix] == '@' || map[Iy - 1][Ix + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Iy][Ix] = map[Iy][Ix + 2];
+                            map[Iy][Ix + 2] = 'I';
+                            Ix++;
+                            inky_moves--;
+                        }
+                        else
+                        {
+                            inky_moves = RSG();
+                            while (inky_smer == 'W')
+                            {
+                                inky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                }
+            }
 //            inky(&inky_moves, &inky_smer, &Iy, &Ix, &is_dead, height, weight, map);
         }
-        if (tick >= 45)
+        if (tick >= 110)
         {
+            bool cant_move = true;
+//            pinky_smer = random_smer_gener();
+            while (cant_move)
+            {
+                switch (pinky_smer)
+                {
+                    case 'N':
+                        if (map[Py - 1][Px] != '#' && map[Py - 1][Px + 1] != '#' &&
+                            map[Py - 1][Px] != 'B' && map[Py - 1][Px + 1] != 'B' &&
+                            map[Py - 1][Px] != 'I' && map[Py - 1][Px + 1] != 'I' &&
+                            map[Py - 1][Px] != 'C' && map[Py - 1][Px + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (pinky_moves <= 0)
+                            {
+                                pinky_moves = RSG();
+                            }
+                            if (pinky_moves > 0)
+                            {
+                                if (map[Py - 1][Px] == '@' || map[Py - 1][Px + 1] == '@')
+                                {
+                                    is_dead = true;
+                                }
+                                map[Py][Px] = map[Py - 1][Px];
+                                map[Py][Px + 1] = map[Py - 1][Px + 1];
+                                map[Py - 1][Px] = 'P';
+                                map[Py - 1][Px + 1] = 'P';
+                                Py--;
+                                pinky_moves--;
+                            }
+                        }
+                        else
+                        {
+                            pinky_moves = RSG();
+                            while (pinky_smer == 'N')
+                            {
+                                pinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'S':
+                        if (map[Py + 1][Px] != '#' && map[Py + 1][Px + 1] != '#' &&
+                            map[Py + 1][Px] != 'B' && map[Py + 1][Px + 1] != 'B' &&
+                            map[Py + 1][Px] != 'I' && map[Py + 1][Px + 1] != 'I' &&
+                            map[Py + 1][Px] != 'C' && map[Py + 1][Px + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Py - 1][Px] == '@' || map[Py - 1][Px + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Py][Px] = map[Py + 1][Px];
+                            map[Py][Px + 1] = map[Py + 1][Px + 1];
+                            map[Py + 1][Px] = 'P';
+                            map[Py + 1][Px + 1] = 'P';
+                            Py++;
+                            pinky_moves--;
+                        }
+                        else
+                        {
+                            pinky_moves = RSG();
+                            while (pinky_smer == 'S')
+                            {
+                                pinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'E':
+                        if (map[Py][Px - 1] != '#' &&
+                            map[Py][Px - 1] != 'B' &&
+                            map[Py][Px - 1] != 'I' &&
+                            map[Py][Px - 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Py - 1][Px] == '@' || map[Py - 1][Px + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Py][Px + 1] = map[Py][Px - 1];
+                            map[Py][Px - 1] = 'P';
+                            Px--;
+                            pinky_moves--;
+                        }
+                        else
+                        {
+                            pinky_moves = RSG();
+                            while (pinky_smer == 'E')
+                            {
+                                pinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'W':
+                        if (map[Py][Px + 2] != '#' &&
+                            map[Py][Px + 2] != 'B' &&
+                            map[Py][Px + 2] != 'I' &&
+                            map[Py][Px + 2] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[Py - 1][Px] == '@' || map[Py - 1][Px + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[Py][Px] = map[Py][Px + 2];
+                            map[Py][Px + 2] = 'P';
+                            Px++;
+                            pinky_moves--;
+                        }
+                        else
+                        {
+                            pinky_moves = RSG();
+                            while (pinky_smer == 'W')
+                            {
+                                pinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                }
+            }
 //            pinky(&pinky_moves, &pinky_smer, &Py, &Px, &is_dead, height, weight, map);
         }
-        if (tick >= 50)
+        if (tick >= 140)
         {
+            bool cant_move = true;
+//            blinky_smer = random_smer_gener();
+            while (cant_move)
+            {
+                switch (blinky_smer)
+                {
+                    case 'N':
+                        if (map[By - 1][Bx] != '#' && map[By - 1][Bx + 1] != '#' &&
+                            map[By - 1][Bx] != 'I' && map[By - 1][Bx + 1] != 'I' &&
+                            map[By - 1][Bx] != 'P' && map[By - 1][Bx + 1] != 'P' &&
+                            map[By - 1][Bx] != 'C' && map[By - 1][Bx + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (blinky_moves <= 0)
+                            {
+                                blinky_moves = RSG();
+                            }
+                            if (blinky_moves > 0)
+                            {
+                                if (map[By - 1][Bx] == '@' || map[By - 1][Bx + 1] == '@')
+                                {
+                                    is_dead = true;
+                                }
+                                map[By][Bx] = map[By - 1][Bx];
+                                map[By][Bx + 1] = map[By - 1][Bx + 1];
+                                map[By - 1][Bx] = 'B';
+                                map[By - 1][Bx + 1] = 'B';
+                                By--;
+                                blinky_moves--;
+                            }
+                        }
+                        else
+                        {
+                            blinky_moves = RSG();
+                            while (blinky_smer == 'N')
+                            {
+                                blinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'S':
+                        if (map[By + 1][Bx] != '#' && map[By + 1][Bx + 1] != '#' &&
+                            map[By + 1][Bx] != 'I' && map[By + 1][Bx + 1] != 'I' &&
+                            map[By + 1][Bx] != 'P' && map[By + 1][Bx + 1] != 'P' &&
+                            map[By + 1][Bx] != 'C' && map[By + 1][Bx + 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[By - 1][Bx] == '@' || map[By - 1][Bx + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[By][Bx] = map[By + 1][Bx];
+                            map[By][Bx + 1] = map[By + 1][Bx + 1];
+                            map[By + 1][Bx] = 'B';
+                            map[By + 1][Bx + 1] = 'B';
+                            By++;
+                            blinky_moves--;
+                        }
+                        else
+                        {
+                            blinky_moves = RSG();
+                            while (blinky_smer == 'S')
+                            {
+                                blinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'E':
+                        if (map[By][Bx - 1] != '#' &&
+                            map[By][Bx - 1] != 'I' &&
+                            map[By][Bx - 1] != 'P' &&
+                            map[By][Bx - 1] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[By - 1][Bx] == '@' || map[By - 1][Bx + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[By][Bx + 1] = map[By][Bx - 1];
+                            map[By][Bx - 1] = 'B';
+                            Bx--;
+                            blinky_moves--;
+                        }
+                        else
+                        {
+                            blinky_moves = RSG();
+                            while (blinky_smer == 'E')
+                            {
+                                blinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                    case 'W':
+                        if (map[By][Bx + 2] != '#' &&
+                            map[By][Bx + 2] != 'I' &&
+                            map[By][Bx + 2] != 'P' &&
+                            map[By][Bx + 2] != 'C')
+                        {
+                            cant_move = false;
+                            if (map[By - 1][Bx] == '@' || map[By - 1][Bx + 1] == '@')
+                            {
+                                is_dead = true;
+                            }
+                            map[By][Bx] = map[By][Bx + 2];
+                            map[By][Bx + 2] = 'B';
+                            Bx++;
+                            blinky_moves--;
+                        }
+                        else
+                        {
+                            blinky_moves = RSG();
+                            while (blinky_smer == 'W')
+                            {
+                                blinky_smer = random_smer_gener();
+                            }
+                        }
+                        break;
+                }
+            }
 //            blinky(&blinky_moves, &blinky_smer, &By, &Bx, &is_dead, height, weight, map);
         }
 

@@ -1,4 +1,4 @@
-weight=28, height=13, highest_score=0, Ox=13, Oy=7, Px=11, Py=5, Bx=13, By=5, Cx=15, Cy=5, Ix=15, Iy=4
+weight=28, height=13, highest_score=0, Ox=13, Oy=7, Px=11, Py=5, Bx=13, By=5, Cx=15, Cy=4, Ix=15, Iy=5
 ############################
 #......#..########..#......#
 #..##..#............#..##..#
