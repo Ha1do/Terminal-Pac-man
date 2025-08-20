@@ -27,3 +27,5 @@ Includes documentation and screenshots (documentation is in Slovak)
 ⚠️ Known issues
 
 Some bugs may occur (rare and therefore not all were fixed)
+
+P.s. I just copied the files from my university repository to this one.
